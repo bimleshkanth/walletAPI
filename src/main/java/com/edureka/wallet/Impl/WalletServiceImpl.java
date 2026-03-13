@@ -43,4 +43,21 @@ public class WalletServiceImpl implements WalletService {
 	    return wallet.getBalance();
 	}
 
+	@Override
+	public double withdrawMoney(String userId, double amount) {
+
+	    Wallet wallet = walletRepository.get(userId);
+
+	    if(wallet == null){
+	        throw new RuntimeException("Wallet not found");
+	    }
+
+	    if(wallet.getBalance() < amount){
+	        throw new RuntimeException("Insufficient balance");
+	    }
+
+	    wallet.setBalance(wallet.getBalance() - amount);
+
+	    return wallet.getBalance();
+	}
 }
