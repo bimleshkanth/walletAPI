@@ -26,5 +26,21 @@ public class WalletServiceImpl implements WalletService {
 		// Implemented
 		return null;
 	}
+	
+	@Override
+	public double addMoney(String userId, double amount) {
+
+	    Wallet wallet = walletRepository.get(userId);
+
+	    if(wallet == null){
+	        wallet = new Wallet(userId, 0);
+	    }
+
+	    wallet.setBalance(wallet.getBalance() + amount);
+
+	    walletRepository.put(userId, wallet);
+
+	    return wallet.getBalance();
+	}
 
 }
