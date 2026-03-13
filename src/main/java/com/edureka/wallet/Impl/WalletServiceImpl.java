@@ -17,6 +17,7 @@ public class WalletServiceImpl implements WalletService {
 	public WalletDto doTransaction(PaymentTransactionDto transaction) {
 		logger.info("Transaction request received = {} ", transaction);
 		// Implemented
+		System.out.println("Transaction started for user: " + userId);
 		return null;
 	}
 
@@ -35,7 +36,7 @@ public class WalletServiceImpl implements WalletService {
 	    if(wallet == null){
 	        wallet = new Wallet(userId, 0);
 	    }
-
+	    System.out.println("Adding money: " + amount + " for user: " + userId);
 	    wallet.setBalance(wallet.getBalance() + amount);
 
 	    walletRepository.put(userId, wallet);
@@ -55,7 +56,7 @@ public class WalletServiceImpl implements WalletService {
 	    if(wallet.getBalance() < amount){
 	        throw new RuntimeException("Insufficient balance");
 	    }
-
+	    System.out.println("Withdrawing money: " + amount + " for user: " + userId);
 	    wallet.setBalance(wallet.getBalance() - amount);
 
 	    return wallet.getBalance();
